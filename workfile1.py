@@ -137,24 +137,73 @@ def print_school_specific_statistics_from_school_code(school_code):
     x = all_data_array[['grade10', 'grade11', 'grade12']][all_data_array['school_code'] == school_code]
     y = [list(x[i]) for i in range(x.size)]
     y = np.array(np.concatenate(y), dtype = 'i4')
+    y = [i for i in y if i >= 0]
+    y = np.array(y)
     print("Hightest enrollment for a sigle grade: ", np.max(y))
     print("Hightest enrollment for a sigle grade: ", np.min(y))
 
-    x = all_data_array[['grade10', 'grade11', 'grade12']][(all_data_array['school_year'] == 2013) & (all_data_array['school_code'] == school_code)]
-    y = np.array(list(x[0]), dtype= 'i4')
-    print("Total enrollment for 2013:", np.sum(y))
+    #x = all_data_array[['grade10', 'grade11', 'grade12']][(all_data_array['school_year'] == 2013) & (all_data_array['school_code'] == school_code)]
+    #y = np.array(list(x[0]), dtype= 'i4')
+    #print("Total enrollment for 2013:", np.sum(y))
 
     ten_year_total = 0
     ten_year_array = np.zeros(10)
     for i in range(2013, 2023):
         x = all_data_array[['grade10', 'grade11', 'grade12']][(all_data_array['school_year'] == i) & (all_data_array['school_code'] == school_code)]
-        y = np.array(list(x[0]), dtype= 'i4')
-        ten_year_total += np.sum(y)
+        #y = np.array(list(x[0]), dtype= 'i4')
+        #y = [i for i in y if i >= 0]
+        #y = np.array(y)
+        y = convert_tuple_to_array(x)
+        ten_year_total += np.sum(y, dtype= 'i4')
         ten_year_array[(i - 2013)] = np.sum(y)
-        print("Total enrollment for ", i,": ", np.sum(y), sep='')
+        print("Total enrollment for ", i,": ", np.sum(y, dtype = 'i4'), sep='')
 
     print("Total ten year enrollment: ", ten_year_total)
     print("Mean total enrollment over 10 years: ", np.mean(ten_year_array, dtype= 'i4'))
+
+    x = all_data_array[['grade10', 'grade11', 'grade12']][all_data_array['school_code'] == school_code]
+    #y = [list(x[i]) for i in range(x.size)]
+    #y = np.array(np.concatenate(y))
+    #y = [i for i in y if i >= 0]
+    #y = np.array(y)
+    y = convert_tuple_to_array(x)
+    print("For all enrollments over 500, the median value was:  ", int(np.median(y[y > 500])))
+
+
+def print_general_statistics_for_all_school():
+    for i in range(2013, 2023, 9):
+        #print("i: ", i)
+        x = all_data_array[['grade10', 'grade11', 'grade12']][all_data_array['school_year'] == i]
+        y = convert_tuple_to_array(x)
+        #y = [list(x[j]) for j in range(x.size)]
+        #y = np.array(np.concatenate(y))
+        #y = [i for i in y if i >= 0]
+        print("Mean enrollment in ", i, ": ", np.mean(y, dtype= 'i4'), sep='')
+
+    x = all_data_array[['grade12']][all_data_array['school_year'] == 2022]
+    y = convert_tuple_to_array(x)
+    print("Total graduating class of 2022: ", np.sum(y, dtype= 'i4'))
+
+    x = all_data_array[['grade10', 'grade11', 'grade12']]
+    x = np.array(x)
+    x = x.reshape(x.size,)
+
+    #x = all_data_array[['grade10', 'grade11', 'grade12']]
+    y = convert_tuple_to_array(x)
+    print("Total graduating", int(np.max(y)))
+    print("Total graduating", int(np.min(y)))
+
+
+    
+
+
+def convert_tuple_to_array (x):
+    y = [list(x[i]) for i in range(x.size)]
+    y = np.array(np.concatenate(y))
+    y = [i for i in y if i >= 0]
+    y = np.array(y)
+    return y
+
 
 
     #grade_10_min = all_data_array['grade10'][all_data_array['school_code'] == school_code].min()
@@ -185,6 +234,8 @@ def main():
                 print(user_input)
             elif (int(user_input) in all_data_array['school_code']):
                 print_school_specific_statistics_from_school_code(int(user_input))
+                print_general_statistics_for_all_school()
+                
         except ValueError:
             print("Invalid input")
 
