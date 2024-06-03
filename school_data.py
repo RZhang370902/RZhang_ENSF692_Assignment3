@@ -19,7 +19,6 @@ grade_array = np.array(grade_array.transpose())
 year_array = np.array(range(2013, 2023))
 
 
-
 school_array = np.array(['Centennial High School', 
                          'Robert Thirsk School', 
                          'Louise Dean School', 
@@ -40,7 +39,6 @@ school_array = np.array(['Centennial High School',
                          'Dr. E. P. Scarlett High School', 
                          'John G Diefenbaker High School', 
                          'Lester B. Pearson High School'])
-
 
 
 
@@ -71,7 +69,7 @@ name_code_array = np.zeros(school_code_array.shape, dtype= [('school_code', scho
 name_code_array['school_code'] = school_code_array
 name_code_array['school_name'] = school_array
 
-print(name_code_array)
+#print(name_code_array)
 
 school_array = np.tile(school_array, 10)
 school_code_array = np.tile(school_code_array, 10)
@@ -129,8 +127,10 @@ def print_school_specific_statistics_from_school_code(school_code):
         x = all_data_array[['grade10', 'grade11', 'grade12']][(all_data_array['school_year'] == i) & (all_data_array['school_code'] == school_code)]
         y = convert_tuple_to_array(x)
         ten_year_total += np.sum(y, dtype= 'i4')
-        ten_year_array[(i - 2013)] = np.sum(y)
-        print("Total enrollment for ", i,": ", np.sum(y, dtype = 'i4'), sep='')
+        if (np.any(y>=0)):
+            ten_year_array[(i - 2013)] = np.sum(y)
+            print("Total enrollment for ", i,": ", np.sum(y, dtype = 'i4'), sep='')
+        else: print("Total enrollment for ", i,": ", "no data available", sep='')
 
     print("Total ten year enrollment: ", ten_year_total)
     print("Mean total enrollment over 10 years: ", np.mean(ten_year_array, dtype= 'i4'))

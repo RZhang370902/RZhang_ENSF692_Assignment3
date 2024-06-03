@@ -116,3 +116,16 @@ from school_data import convert_tuple_to_array
 x = all_data_array[['grade10', 'grade11', 'grade12']][all_data_array['school_code'] == 9830]
 y = convert_tuple_to_array(x)
 print(np.any(y > 500))
+
+print()
+print()
+
+ten_year_total = 0
+ten_year_array = np.zeros(10)
+x = all_data_array[['grade10', 'grade11', 'grade12']][(all_data_array['school_year'] == 2022) & (all_data_array['school_code'] == 9830)]
+y = convert_tuple_to_array(x)
+
+print(np.any(y>=0))
+#ten_year_total += np.sum(y, dtype= 'i4')
+#ten_year_array[(i - 2013)] = np.sum(y)
+#print("Total enrollment for ", i,": ", np.sum(y, dtype = 'i4'), sep='')
