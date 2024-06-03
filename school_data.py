@@ -69,6 +69,27 @@ name_code_array = np.zeros(school_code_array.shape, dtype= [('school_code', scho
 name_code_array['school_code'] = school_code_array
 name_code_array['school_name'] = school_array
 
+name_code_dic = {'Centennial High School':1224, 
+                         'Robert Thirsk School':1679, 
+                         'Louise Dean School':9626, 
+                         'Queen Elizabeth High School':9806, 
+                         'Forest Lawn High School':9813, 
+                         'Crescent Heights High School':9815, 
+                         'Western Canada High School':9816, 
+                         'Central Memorial High School':9823, 
+                         'James Fowler High School':9825, 
+                         'Ernest Manning High School':9826, 
+                         'William Aberhart High School':9829, 
+                         'National Sport School':9830, 
+                         'Henry Wise Wood High School':9836, 
+                         'Bowness High School':9847, 
+                         'Lord Beaverbrook High School':9850, 
+                         'Jack James High School':9856, 
+                         'Sir Winston Churchill High School':9857, 
+                         'Dr. E. P. Scarlett High School':9858, 
+                         'John G Diefenbaker High School':9860, 
+                         'Lester B. Pearson High School':9865}
+
 #print(name_code_array)
 
 school_array = np.tile(school_array, 10)
@@ -94,9 +115,11 @@ all_data_array['grade12'] = grade_array[2:3, :]
 # You may add your own additional classes, functions, variables, etc.
 
 def print_school_specific_statistics_from_school_name(school_name):
-    x = name_code_array['school_code'][name_code_array['school_name'] == school_name]
-    print_school_specific_statistics_from_school_code(x[0])
-    
+    #x = name_code_array['school_code'][name_code_array['school_name'] == school_name]
+    #print_school_specific_statistics_from_school_code(x[0])
+    x = name_code_dic[school_name]
+    print_school_specific_statistics_from_school_code(x)
+
 
 def print_school_specific_statistics_from_school_code(school_code):
 
