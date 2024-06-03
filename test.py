@@ -110,3 +110,9 @@ print(y)
 
 for i in ('a', 'b', 'c'):
     print(i)
+
+from school_data import convert_tuple_to_array
+
+x = all_data_array[['grade10', 'grade11', 'grade12']][all_data_array['school_code'] == 9830]
+y = convert_tuple_to_array(x)
+print(np.any(y > 500))

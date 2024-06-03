@@ -101,39 +101,19 @@ def print_school_specific_statistics_from_school_name(school_name):
     
 
 def print_school_specific_statistics_from_school_code(school_code):
+
+    # Print school name and school code entered by user
     school_name = all_data_array['school_name'][all_data_array['school_code'] == school_code][0]
     print("School name: ", school_name, ", School Code: ", school_code, sep='')
     
-    '''
-    x = all_data_array['grade10'][all_data_array['school_code'] == school_code]
-    y = np.array(x)
-    y = [i for i in y if i >= 0]
-    #y = convert_tuple_to_array(x)
-    print("Mean enrollement for Grade10: ", int(np.mean(y)))
-    #print("Mean enrollement for Grade11: ", np.mean(all_data_array['grade11'][all_data_array['school_code'] == school_code], dtype= 'i4'))
-    #print("Mean enrollement for Grade12: ", np.mean(all_data_array['grade12'][all_data_array['school_code'] == school_code], dtype= 'i4'))
-
-    x = all_data_array['grade11'][all_data_array['school_code'] == school_code]
-    y = np.array(x)
-    y = [i for i in y if i >= 0]
-    #y = convert_tuple_to_array(x)
-    print("Mean enrollement for Grade10: ", int(np.mean(y)))
-
-    x = all_data_array['grade12'][all_data_array['school_code'] == school_code]
-    y = np.array(x)
-    y = [i for i in y if i >= 0]
-    #y = convert_tuple_to_array(x)
-    print("Mean enrollement for Grade10: ", int(np.mean(y)))
-'''
-
+    # Print Mean Enrollment for each grade
     for i in ('grade10', 'grade11', 'grade12'):
         x = all_data_array[i][all_data_array['school_code'] == school_code]
         y = np.array(x)
         y = [i for i in y if i >= 0]
-        #y = convert_tuple_to_array(x)
         print("Mean enrollement for ", i.capitalize(), ': ', int(np.mean(y)),sep= '')
     
-
+    # Print
     x = all_data_array[['grade10', 'grade11', 'grade12']][all_data_array['school_code'] == school_code]
     y = [list(x[i]) for i in range(x.size)]
     y = np.array(np.concatenate(y))
@@ -155,9 +135,13 @@ def print_school_specific_statistics_from_school_code(school_code):
     print("Total ten year enrollment: ", ten_year_total)
     print("Mean total enrollment over 10 years: ", np.mean(ten_year_array, dtype= 'i4'))
 
+  
     x = all_data_array[['grade10', 'grade11', 'grade12']][all_data_array['school_code'] == school_code]
     y = convert_tuple_to_array(x)
-    print("For all enrollments over 500, the median value was:  ", int(np.median(y[y > 500])))
+    #if y.any()
+    if(np.any(y > 500)):
+        print("For all enrollments over 500, the median value was:  ", int(np.median(y[y > 500])))
+    else: print("There is no enrollments over 500.")
 
 
 def print_general_statistics_for_all_school():
@@ -174,8 +158,8 @@ def print_general_statistics_for_all_school():
     x = np.array(x)
     x = x.reshape(x.size,)
     y = convert_tuple_to_array(x)
-    print("Total graduating", int(np.max(y)))
-    print("Total graduating", int(np.min(y)))
+    print("Highest enrollment for a single grade:", int(np.max(y)))
+    print("Lowest enrollment for a single grade:", int(np.min(y)))
 
 
 
