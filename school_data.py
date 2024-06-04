@@ -281,7 +281,7 @@ def print_general_statistics_for_all_school():
     # ---1. The mean enrollment in 2013
     # ---2. The mean enrollment in 2022
     for i in range(2013, 2023, 9):
-        x = all_data_array[['grade10', 'grade11', 'grade12']][all_data_array['school_year'] == i]
+        x = all_data_array[['grade10', 'grade11', 'grade12']][all_data_array['school_year'] == i] # example of masking
         y = convert_tuple_to_array(x)
         print("Mean enrollment in ", i, ": ", np.mean(y, dtype= 'i4'), sep='')
 
@@ -352,7 +352,7 @@ def main():
             print_general_statistics_for_all_school()
                 
         except ValueError:
-            print("Invalid input. Please input school code or name.")
+            print("Invalid input. Please input school code or name. Enter 0 to quit.")
 
 
 if __name__ == '__main__':
