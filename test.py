@@ -96,17 +96,7 @@ print(int(np.min(y)))
 #y = convert_tuple_to_array(x)
 #print("Total graduating", np.max(y, dtype= 'i4'))
 
-from school_data import name_code_array
-x = name_code_array['school_code'][name_code_array['school_name'] == 'John G Diefenbaker High School']
-print(x[0])
 
-print()
-print()
-x = all_data_array['grade10'][all_data_array['school_code'] == 9830]
-y = np.array(x)
-y = [i for i in y if i >= 0]
-print(x)
-print(y)
 
 for i in ('a', 'b', 'c'):
     print(i)
@@ -129,3 +119,29 @@ print(np.any(y>=0))
 #ten_year_total += np.sum(y, dtype= 'i4')
 #ten_year_array[(i - 2013)] = np.sum(y)
 #print("Total enrollment for ", i,": ", np.sum(y, dtype = 'i4'), sep='')
+
+school_code_array = np.array([1224, 
+                              1679, 
+                              9626, 
+                              9806, 
+                              9813, 
+                              9815, 
+                              9816, 
+                              9823, 
+                              9825, 
+                              9826, 
+                              9829, 
+                              9830, 
+                              9836, 
+                              9847, 
+                              9850, 
+                              9856, 
+                              9857, 
+                              9858, 
+                              9860, 
+                              9865])
+
+print(school_code_array.shape)
+
+a = '0'
+print(type(a))
